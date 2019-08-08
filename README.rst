@@ -7,16 +7,15 @@ This is a small app for getting acquainted with the
 Deploying with Docker
 ---------------------
 1. ``docker build -t hello-pdc .``
-2. ``docker run --rm --name app -d -p 5000:5000 hello-pdc``
+2. ``docker network create --driver=bridge hello-pdc``
+3. ``docker run --rm --name app --net hello-pdc -d -p 5000:5000 hello-pdc``
 
 You can access the app on http://localhost:5000/ however the counter won't work
 because Redis isn't running.
 
 To spin up a Redis instance and connect the app, do the following:
 
-1. ``docker network create --driver=bridge hello-pdc``
-2. ``docker network connect hello-pdc app``
-3. ``docker run --rm --name redis --net hello-pdc -d redis:alpine``
+1. ``docker run --rm --name redis --net hello-pdc -d redis:alpine``
 
 Now if you go to http://localhost:5000/ you should see that the counter will now
 increment as you refresh the page.
