@@ -10,7 +10,7 @@ def fixture_url(function_scoped_containers) -> str:
     Waits for the app to come online, then returns the URL to access the
     homepage.
     """
-    service = function_scoped_containers["hello-docker_app_1"].network_info[0]
+    service = function_scoped_containers["hello-pytest-docker-compose_app_1"].network_info[0]
 
     base_url = f"http://{service.hostname}:{service.host_port}"
 
