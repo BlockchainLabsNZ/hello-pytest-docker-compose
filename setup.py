@@ -3,9 +3,9 @@ from setuptools import setup
 tests_require = ['pytest', 'pytest-docker-compose']
 
 setup(
-    name='hello-docker',
-    description='Example app showing how to use Docker.',
-    url='https://docs.docker.com/get-started/',
+    name='hello-pytest-docker-compose',
+    description='Small app for getting acquainted with pytest-docker-compose',
+    url='https://github.com/BlockchainLabsNZ/hello-pytest-docker-compose',
 
     version='1.0.0',
 
@@ -16,5 +16,5 @@ setup(
     tests_require=tests_require,
 
     author='Phoenix Zerin',
-    author_email='phx@phx.ph',
+    author_email='phoenix@blockchainlabs.nz',
 )
