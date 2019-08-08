@@ -14,8 +14,8 @@ RUN pip install --trusted-host pypi.python.org .
 # Set an environment variable.
 ENV NAME "Docker"
 
-# Tell Docker that this container will expose a service on port 5000.
-EXPOSE 5000
+# Tell Docker that this container will expose a service on port 80.
+EXPOSE 80
 
 # Specify the command that the container will run when it starts.
 CMD ["python", "app.py"]

@@ -50,6 +50,11 @@ def health_check():
 
 
 if __name__ == "__main__":
+    # Connect to the Redis container.  The hostname must match the name
+    # of the corresponding service in ``docker-compose.yml``.
     redis = Redis("redis", db=0, socket_timeout=2, socket_connect_timeout=2)
 
-    app.run(host="0.0.0.0", port=5000)
+    # Listen for incoming connections on port 80.
+    # Note that we map this to port 5000 in ``docker-compose.yml``, so
+    # that we can access the webapp by going to http://localhost:5000/
+    app.run(host="0.0.0.0", port=80)

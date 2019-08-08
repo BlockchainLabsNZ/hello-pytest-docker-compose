@@ -8,7 +8,7 @@ Deploying with Docker
 ---------------------
 1. ``docker build -t hello-pdc .``
 2. ``docker network create --driver=bridge hello-pdc``
-3. ``docker run --rm --name app --net hello-pdc -d -p 5000:5000 hello-pdc``
+3. ``docker run --rm --name app --net hello-pdc -d -p 5000:80 hello-pdc``
 
 You can access the app on http://localhost:5000/ however the counter won't work
 because Redis isn't running.
@@ -23,6 +23,8 @@ increment as you refresh the page.
 To stop the containers from running:
 
 1. ``docker stop app redis``
+
+For more information, refer to ``Dockerfile`` in this repository.
 
 
 Deploying with docker-compose
@@ -40,6 +42,8 @@ correctly.  After running the above command, you can view the app on
 http://localhost:5000/ and the counter will work straightaway.
 
 Press Control-C to bring the containers back down.
+
+For more information, refer to ``docker-compose.yml`` in this repository.
 
 
 Running Unit Tests

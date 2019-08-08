@@ -1,10 +1,24 @@
+# Specify which version of the compose file syntax we are using.
 version: '3'
 
+# Define the containers that we will launch.
 services:
+  # Webapp container
   app:
+    # Build the app using the Dockerfile in the same directory as this
+    # file.
     build: .
-    ports:
-     - '5000:5000'
 
+    # The app listens for incoming connections on port 80, but we will
+    # map this to port 5000 on the host system, so that we can access
+    # the app by going to http://localhost:5000/
+    ports:
+     - '5000:80'
+
+  # Redis container
   redis:
+    # Use a stock image from Docker Hub.
     image: 'redis:alpine'
+
+    # Note that we don't have to define any ports here; that's only if
+    # we want to access the container from the host system.
