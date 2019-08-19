@@ -5,12 +5,12 @@ from urllib3.util.retry import Retry
 
 
 @pytest.fixture(name="url")
-def fixture_url(function_scoped_containers) -> str:
+def fixture_url(function_scoped_container_getter) -> str:
     """
     Waits for the app to come online, then returns the URL to access the
     homepage.
     """
-    service = function_scoped_containers["hello-pytest-docker-compose_app_1"].network_info[0]
+    service = function_scoped_container_getter.get('app').network_info[0]
 
     base_url = f"http://{service.hostname}:{service.host_port}"
 
