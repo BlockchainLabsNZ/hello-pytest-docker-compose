@@ -1,5 +1,7 @@
 import os
+import signal
 import socket
+import sys
 
 from flask import Flask
 from redis import Redis, RedisError
@@ -50,6 +52,9 @@ def health_check():
 
 
 if __name__ == "__main__":
+    # Hack: ``docker stop`` sends SIGTERM, but Flask responds to SIGINT.
+    signal.signal(signal.SIGTERM, lambda signum, frame: sys.exit(0))
+
     # Connect to the Redis container.  The hostname must match the name
     # of the corresponding service in ``docker-compose.yml``.
     redis = Redis("redis", db=0, socket_timeout=2, socket_connect_timeout=2)
