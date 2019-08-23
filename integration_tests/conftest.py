@@ -4,8 +4,8 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 
-@pytest.fixture(name="url")
-def fixture_url(function_scoped_container_getter) -> str:
+@pytest.fixture(name="homepage")
+def fixture_homepage(function_scoped_container_getter) -> str:
     """
     Waits for the app to come online, then returns the URL to access the
     homepage.
@@ -23,6 +23,6 @@ def fixture_url(function_scoped_container_getter) -> str:
     session = Session()
     session.mount('http://', HTTPAdapter(max_retries=retry))
 
-    assert session.get(f'{base_url}/health_check')
+    assert session.get(f'{base_url}/health_check').text == 'ok'
 
     return base_url
