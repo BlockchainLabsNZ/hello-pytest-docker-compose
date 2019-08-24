@@ -1,10 +1,10 @@
 import os
 import signal
 import socket
-import sys
 
-from flask import Flask
+from klein import run, route
 from redis import Redis, RedisError
+from twisted.internet import reactor
 
 
 def increment_counter(redis_client: Redis) -> int:
@@ -17,11 +17,8 @@ def increment_counter(redis_client: Redis) -> int:
         return 0
 
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def hello():
+@route("/")
+def hello(request):
     """
     Displays the number of page hits.
     """
@@ -43,8 +40,8 @@ def hello():
     )
 
 
-@app.route("/health_check")
-def health_check():
+@route("/health_check")
+def health_check(request):
     """
     Used to verify that the app is up and running.
     """
@@ -52,8 +49,9 @@ def health_check():
 
 
 if __name__ == "__main__":
-    # Hack: ``docker stop`` sends SIGTERM, but Flask responds to SIGINT.
-    signal.signal(signal.SIGTERM, lambda signum, frame: sys.exit(0))
+    # Hack:  Quick and dirty wire-up of reactor's SIGTERM handler.
+    # ``docker stop`` sends a SIGTERM, not a SIGINT.
+    signal.signal(signal.SIGTERM, lambda signum, frame: reactor.sigTerm())
 
     # Connect to the Redis container.  The hostname must match the name
     # of the corresponding service in ``docker-compose.yml``.
@@ -62,4 +60,4 @@ if __name__ == "__main__":
     # Listen for incoming connections on port 80.
     # Note that we map this to port 5000 in ``docker-compose.yml``, so
     # that we can access the webapp by going to http://localhost:5000/
-    app.run(host="0.0.0.0", port=80)
+    run(host="0.0.0.0", port=80)

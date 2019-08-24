@@ -9,7 +9,7 @@ setup(
 
     version='1.0.0',
 
-    install_requires=['flask', 'redis'],
+    install_requires=['klein', 'redis'],
     extras_require={'test-runner': tests_require,},
 
     setup_requires=['pytest-runner'],
