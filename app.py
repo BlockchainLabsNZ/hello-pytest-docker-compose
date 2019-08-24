@@ -1,10 +1,8 @@
 import os
-import signal
 import socket
 
-from klein import run, route
+from klein import route, run
 from redis import Redis, RedisError
-from twisted.internet import reactor
 
 
 def increment_counter(redis_client: Redis) -> int:
