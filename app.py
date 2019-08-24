@@ -49,10 +49,6 @@ def health_check(request):
 
 
 if __name__ == "__main__":
-    # Hack:  Quick and dirty wire-up of reactor's SIGTERM handler.
-    # ``docker stop`` sends a SIGTERM, not a SIGINT.
-    signal.signal(signal.SIGTERM, lambda signum, frame: reactor.sigTerm())
-
     # Connect to the Redis container.  The hostname must match the name
     # of the corresponding service in ``docker-compose.yml``.
     redis = Redis("redis", db=0, socket_timeout=2, socket_connect_timeout=2)
