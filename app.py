@@ -1,7 +1,7 @@
 import os
 import socket
 
-from klein import route, run
+import klein
 from redis import Redis, RedisError
 
 
@@ -15,7 +15,7 @@ def increment_counter(redis_client: Redis) -> int:
         return 0
 
 
-@route("/")
+@klein.route("/")
 def hello(request):
     """
     Displays the number of page hits.
@@ -38,7 +38,7 @@ def hello(request):
     )
 
 
-@route("/health_check")
+@klein.route("/health_check")
 def health_check(request):
     """
     Used to verify that the app is up and running.
@@ -54,4 +54,4 @@ if __name__ == "__main__":
     # Listen for incoming connections on port 80.
     # Note that we map this to port 5000 in ``docker-compose.yml``, so
     # that we can access the webapp by going to http://localhost:5000/
-    run(host="0.0.0.0", port=80)
+    klein.run(host="0.0.0.0", port=80)
