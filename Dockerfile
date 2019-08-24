@@ -15,7 +15,7 @@ WORKDIR /app
 COPY . /app
 
 # Run a pip install on the container.
-RUN pip install --trusted-host pypi.python.org .
+RUN pip install .
 
 # Set an environment variable.
 ENV NAME "Docker"
